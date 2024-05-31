@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Our Method: The 5-Step Process</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .steps-container {
+        max-width: 100%;
+        margin: 0 auto 20px auto;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .steps {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+      }
+
+      .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .step::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: #ccc;
+        z-index: -1;
+      }
+
+      .step:first-child::before {
+        left: 50%;
+        width: 75%;
+      }
+
+      .step:last-child::before {
+        width: 50%;
+      }
+
+      .step .step-number {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        line-height: 24px;
+        border-radius: 50%;
+        background-color: #ff5c00;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 1px;
+        transition: background-color 0.3s;
+      }
+
+      .step.active .step-number {
+        background-color: #007bff;
+      }
+
+      .slider-container {
+        max-width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        background-color: transparent;
+      }
+
+      .slider {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+      }
+
+      .slide {
+        flex: 0 0 33.33%; /* Adjust based on the number of slides */
+        box-sizing: border-box;
+        padding: 24px;
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        opacity: 1;
+        transition: opacity 0.5s;
+        margin: 0 10px;
+      }
+
+      .slide h2 {
+        display: flex;
+        align-items: center;
+        font-size: 1.5em;
+        margin-bottom: 15px;
+      }
+
+      .slide i {
+        margin-right: 10px;
+      }
+
+      .slide p {
+        font-size: 1em;
+        line-height: 1.5em;
+      }
+
+      .slide.fade {
+        opacity: 0.5;
+      }
+
+      .navigation {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .navigation button {
+        border: none;
+        background-color: #ff5c00;
+        color: white;
+        padding: 10px 15px;
+        margin: 0 50px 0 0;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+      }
+
+      .navigation button:hover {
+        background-color: #e04e00;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Our Method: The 5-Step Process</h1>
+
+    <div class="steps-container">
+      <div class="steps">
+        <div class="step"><span class="step-number">1</span></div>
+        <div class="step"><span class="step-number">2</span></div>
+        <div class="step"><span class="step-number">3</span></div>
+        <div class="step"><span class="step-number">4</span></div>
+        <div class="step"><span class="step-number">5</span></div>
+      </div>
+    </div>
+
+    <div class="slider-container">
+      <div class="slider">
+        <div class="slide">
+          <h2><i class="fas fa-lightbulb"></i> Step 1: Ideate</h2>
+          <p>
+            We focus on identifying emotional triggers that drive customer
+            action and opportunities to enhance the shopping experience. By
+            understanding what motivates your customers, we generate ideas that
+            aim to improve user engagement and boost conversion rates.
+          </p>
+        </div>
+        <div class="slide">
+          <h2><i class="fas fa-tasks"></i> Step 2: Prioritize</h2>
+          <p>
+            Next, we prioritize these ideas using a structured framework,
+            assessing each one for its potential impact and ease of
+            implementation. This ensures that we address the most promising and
+            effective changes first, maximizing return on investment.
+          </p>
+        </div>
+        <div class="slide">
+          <h2><i class="fas fa-cogs"></i> Step 3: Implement</h2>
+          <p>
+            We move forward with implementation, applying the prioritized ideas
+            and making changes to your site or application. This step involves
+            close collaboration with your team to ensure that the changes are
+            aligned with your overall strategy and goals.
+          </p>
+        </div>
+        <div class="slide">
+          <h2><i class="fas fa-chart-line"></i> Step 4: Analyze</h2>
+          <p>
+            After implementation, we monitor and analyze the results. This
+            involves tracking key metrics to measure the impact of the changes
+            and understanding how they influence user behavior and conversion
+            rates.
+          </p>
+        </div>
+        <div class="slide">
+          <h2><i class="fas fa-sync-alt"></i> Step 5: Iterate</h2>
+          <p>
+            Based on our analysis, we iterate on the process, making further
+            improvements and refinements. This continuous cycle of ideation,
+            prioritization, implementation, and analysis ensures that your site
+            or application is always optimized for the best possible
+            performance.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="navigation">
+      <button id="prevBtn">&lt;</button>
+      <button id="nextBtn">&gt;</button>
+    </div>
+
+    <script>
+      const slider = document.querySelector(".slider");
+      const slides = document.querySelectorAll(".slide");
+      const stepsSlider = document.querySelector(".steps");
+      const steps = document.querySelectorAll(".step");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      let currentIndex = 0;
+
+      function updateSlides(index) {
+        const slideWidth = slides[0].offsetWidth + 20; // includes margin
+        const offset = slider.offsetWidth / 2; // Adjust offset calculation to start from the middle
+        slider.style.transform = `translateX(${
+          -index * slideWidth + offset
+        }px)`;
+
+        slides.forEach((slide, i) => {
+          if (i === index) {
+            slide.classList.remove("fade");
+          } else {
+            slide.classList.add("fade");
+          }
+        });
+      }
+
+      function updateSteps(index) {
+        const stepWidth = steps[0].offsetWidth;
+        const stepOffset = (stepsSlider.offsetWidth - stepWidth) / 2;
+        stepsSlider.style.transform = `translateX(${
+          -index * stepWidth + stepOffset
+        }px)`;
+
+        steps.forEach((step, i) => {
+          if (i === index) {
+            step.classList.add("active");
+          } else {
+            step.classList.remove("active");
+          }
+        });
+      }
+
+      function showSlide(index) {
+        updateSlides(index);
+        updateSteps(index);
+      }
+
+      prevBtn.addEventListener("click", () => {
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : slides.length - 1;
+        showSlide(currentIndex);
+      });
+
+      nextBtn.addEventListener("click", () => {
+        currentIndex = currentIndex < slides.length - 1 ? currentIndex + 1 : 0;
+        showSlide(currentIndex);
+      });
+
+      window.addEventListener("resize", () => {
+        showSlide(currentIndex);
+      });
+
+      // Initially show the first slide and highlight the corresponding step
+      showSlide(currentIndex);
+    </script>
+  </body>
+</html>
