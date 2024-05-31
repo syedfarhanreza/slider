@@ -10,7 +10,8 @@
       body {
         font-family: Arial, sans-serif;
         padding: 20px;
-        background-color: #f0f0f0;
+        background-color: black; /* Change body background color to black */
+        color: white; /* Change text color to white */
       }
 
       h1 {
@@ -29,6 +30,7 @@
         display: flex;
         transition: transform 0.5s ease-in-out;
         width: 100%;
+        margin-left: 30px;
       }
 
       .step {
@@ -43,19 +45,22 @@
         position: absolute;
         top: 50%;
         left: 0;
-        width: 100%;
+        width: 200%; /* Adjusted width to span the entire slider container */
+        transform: translateY(-50%);
         height: 4px;
         background-color: #ccc;
         z-index: -1;
       }
 
       .step:first-child::before {
-        left: 50%;
-        width: 75%;
+        width: 100%; /* Adjusted width for the first step */
+        left: 50%; /* Center the line for the first step */
       }
 
       .step:last-child::before {
-        width: 50%;
+        width: 100%; /* Adjusted width for the last step */
+        left: 50%; /* Reset left property */
+        right: 0; /* Align the line to the right for the last step */
       }
 
       .step .step-number {
@@ -67,7 +72,7 @@
         background-color: #ff5c00;
         color: white;
         font-weight: bold;
-        margin-bottom: 1px;
+        margin-bottom: 0px;
         transition: background-color 0.3s;
       }
 
@@ -95,12 +100,16 @@
         flex: 0 0 33.33%; /* Adjust based on the number of slides */
         box-sizing: border-box;
         padding: 24px;
-        background-color: white;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        opacity: 1;
-        transition: opacity 0.5s;
+        opacity: 0.5; /* Default opacity for inactive slides */
+        transition: opacity 0.5s, background-color 0.5s, color 0.5s;
         margin: 0 10px;
+        background-color: black; /* Background color for inactive slides */
+        color: white; /* Text color for inactive slides */
+      }
+      .slide.active {
+        opacity: 1; /* Full opacity for active slide */
       }
 
       .slide h2 {
@@ -221,20 +230,21 @@
       const steps = document.querySelectorAll(".step");
       const prevBtn = document.getElementById("prevBtn");
       const nextBtn = document.getElementById("nextBtn");
-      let currentIndex = 0;
+      let currentIndex = 0; // Start at the first slide
 
       function updateSlides(index) {
         const slideWidth = slides[0].offsetWidth + 20; // includes margin
-        const offset = slider.offsetWidth / 2; // Adjust offset calculation to start from the middle
+        const containerWidth = slider.offsetWidth;
+        const offset = containerWidth / 2; // Adjust offset to start from the middle
         slider.style.transform = `translateX(${
           -index * slideWidth + offset
         }px)`;
 
         slides.forEach((slide, i) => {
           if (i === index) {
-            slide.classList.remove("fade");
+            slide.classList.add("active");
           } else {
-            slide.classList.add("fade");
+            slide.classList.remove("active");
           }
         });
       }
@@ -242,8 +252,14 @@
       function updateSteps(index) {
         const stepWidth = steps[0].offsetWidth;
         const stepOffset = (stepsSlider.offsetWidth - stepWidth) / 2;
+        const slideWidth = slides[0].offsetWidth + 20; // includes margin
+        const offset = slider.offsetWidth / 2; // Adjust offset calculation to start from the middle
+
         stepsSlider.style.transform = `translateX(${
           -index * stepWidth + stepOffset
+        }px)`;
+        slider.style.transform = `translateX(${
+          -index * slideWidth + offset
         }px)`;
 
         steps.forEach((step, i) => {
